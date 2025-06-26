@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90-Day Power Sprint</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" integrity="sha512-1cK78a1o+ht2JcaW6g8OXYwqpev9+6GqOkz9xmBN9iUUhIndKtxwILGWYOSibOKjLsEdjyjZvYDq/cZwNeak0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a, #2c2c2c);
+            color: #fff;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/random/1920x1080?space');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .mission {
+            font-style: italic;
+            color: #ffd700;
+        }
+
+        .cta-button {
+            padding: 1rem 2rem;
+            font-size: 1.2rem;
+            background: #ffd700;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .countdown {
+            margin: 1.5rem 0;
+            font-size: 1.5rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown div {
+            background: #3a3a3a;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
+            min-width: 80px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .countdown span {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .phases {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: #2c2c2c;
+        }
+
+        .phases h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #ffd700;
+        }
+
+        .phase-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .phase-card {
+            background: #3a3a3a;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 300px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .phase-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .phase-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .phase-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .phase-card li {
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .tracker {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: #1a1a1a;
+        }
+
+        .tracker h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #ffd700;
+        }
+
+        .tracker-table {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: #3a3a3a;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .tracker-table th, .tracker-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #4a4a4a;
+        }
+
+        .tracker-table th {
+            background: #ffd700;
+            color: #1a1a1a;
+            font-weight: bold;
+        }
+
+        .result-checkbox {
+            cursor: pointer;
+        }
+
+        .progress-bar {
+            width: 50%;
+            height: 20px;
+            background: #4a4a4a;
+            border-radius: 10px;
+            margin: 2rem auto;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #ffd700;
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            font-size: 1.2rem;
+            color: #ffd700;
+        }
+
+        .mantra {
+            padding: 3rem;
+            text-align: center;
+            background: #ffd700;
+            color: #1a1a1a;
+        }
+
+        .mantra h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .mantra p {
+            font-style: italic;
+            font-size: 1.5rem;
+        }
+
+        /* Celebration Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: #3a3a3a;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .modal-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 1rem;
+        }
+
+        .modal-content p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-content button {
+            padding: 0.8rem 1.5rem;
+            background: #ffd700;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .countdown div {
+                min-width: 60px;
+            }
+
+            .countdown span {
+                font-size: 1.5rem;
+            }
+
+            .phase-card {
+                width: 100%;
+            }
+
+            .progress-bar {
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="hero-content">
+            <h1>🚀 90-Day Power Sprint</h1>
+            <p>📅 June 26 → September 26</p>
+            <div class="countdown">
+                <div><span id="days">0</span> Days</div>
+                <div><span id="hours">0</span> Hours</div>
+                <div><span id="minutes">0</span> Minutes</div>
+                <div><span id="seconds">0</span> Seconds</div>
+            </div>
+            <p class="mission">🎯 Mission: Crush your target with laser-sharp focus.</p>
+            <button class="cta-button" onclick="scrollToSection('phases')">Start Now</button>
+        </div>
+    </header>
+
+    <section id="phases" class="phases">
+        <h2>Phases of Domination</h2>
+        <div class="phase-container">
+            <div class="phase-card" data-aos="fade-up">
+                <h3>✅ Phase 1: FOUNDATION</h3>
+                <p><strong>June 26 – July 10</strong></p>
+                <p><strong>Goal:</strong> Set systems, sharpen focus, and define your target.</p>
+                <ul>
+                    <li>Clarify your main goal (personal, professional, financial, or fitness).</li>
+                    <li>Break it into 3 Milestones (30 / 60 / 90 days).</li>
+                    <li>Create a daily system: habits, routines, deep work blocks.</li>
+                    <li>Eliminate distractions. Commit publicly or journal privately.</li>
+                </ul>
+            </div>
+            <div class="phase-card" data-aos="fade-up" data-aos-delay="200">
+                <h3>✅ Phase 2: EXECUTION</h3>
+                <p><strong>July 11 – August 20</strong></p>
+                <p><strong>Goal:</strong> Stay in the zone. Consistency is king.</p>
+                <ul>
+                    <li>Stick to your daily routine no matter what.</li>
+                    <li>Weekly check-ins: track progress & adjust.</li>
+                    <li>Push your limits: go from good → great.</li>
+                    <li>Stay accountable (mentor / mirror / journal).</li>
+                </ul>
+            </div>
+            <div class="phase-card" data-aos="fade-up" data-aos-delay="400">
+                <h3>✅ Phase 3: DOMINATION</h3>
+                <p><strong>August 21 – September 26</strong></p>
+                <p><strong>Goal:</strong> Final sprint. Finish like a beast.</p>
+                <ul>
+                    <li>🚨 Review your 60-day progress → double down.</li>
+                    <li>⚡ Focus only on what moves the needle.</li>
+                    <li>🧠 Eliminate “maybe” tasks. Only YES or NO.</li>
+                    <li>🏁 Cross the finish line — no excuses.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="tracker" class="tracker">
+        <h2>🧩 90-Day Target Tracker</h2>
+        <table class="tracker-table">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Focus Area</th>
+                    <th>Key Action</th>
+                    <th>Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Planning</td>
+                    <td>Set vision & system</td>
+                    <td><input type="checkbox" class="result-checkbox"></td>
+                </tr>
+                <tr>
+                    <td>2–4</td>
+                    <td>Execution</td>
+                    <td>Build consistency</td>
+                    <td><input type="checkbox" class="result-checkbox"></td>
+                </tr>
+                <tr>
+                    <td>5–8</td>
+                    <td>Expansion</td>
+                    <td>Optimize & grow</td>
+                    <td><input type="checkbox" class="result-checkbox"></td>
+                </tr>
+                <tr>
+                    <td>9–13</td>
+                    <td>Finish Line</td>
+                    <td>Final sprint</td>
+                    <td><input type="checkbox" class="result-checkbox"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <p class="progress-text">Progress: <span id="progress-percent">0%</span></p>
+    </section>
+
+    <footer class="mantra">
+        <h2>🔥 Mantra for the Journey</h2>
+        <p>“90 days of insane focus can put you 5 years ahead.”</p>
+    </footer>
+
+    <!-- Celebration Modal -->
+    <div id="celebration-modal" class="modal">
+        <div class="modal-content">
+            <h2>🎉 Congratulations!</h2>
+            <p>You've crushed your 90-Day Power Sprint! You're 5 years ahead!</p>
+            <button onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script>
+        // Initialize AOS (Animate on Scroll)
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Countdown timer
+        const endDate = new Date('September 26, 2025 23:59:59').getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = endDate - now;
+
+            if (distance <= 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Celebration confetti
+        function launchConfetti() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 },
+                colors: ['#ffd700', '#ffffff', '#1a1a1a']
+            });
+        }
+
+        // Modal control
+        const modal = document.getElementById('celebration-modal');
+        function showModal() {
+            modal.style.display = 'flex';
+            launchConfetti();
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        // Progress tracker
+        const checkboxes = document.querySelectorAll('.result-checkbox');
+        const progressFill = document.querySelector('.progress-fill');
+        const progressText = document.getElementById('progress-percent');
+
+        function updateProgress() {
+            const total = checkboxes.length;
+            const checked = document.querySelectorAll('.result-checkbox:checked').length;
+            const percentage = (checked / total) * 100;
+            progressFill.style.width = `${percentage}%`;
+            progressText.textContent = `${Math.round(percentage)}%`;
+
+            // Trigger celebration when progress reaches 100%
+            if (percentage === 100) {
+                showModal();
+            }
+        }
+
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateProgress);
+        });
+
+        // Initialize progress on page load
+        updateProgress();
+    </script>
+</body>
+</html>
